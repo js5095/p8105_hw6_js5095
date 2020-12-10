@@ -66,7 +66,9 @@ The predictions center around 3000, whereas the residuals center around 0. There
 
 ```{r}
 # Create two other models
+# One using length at birth and gestational age as predictors (main effects only)
 model_1 = lm(bwt ~ blength + gaweeks, data=bw_df)
+# One using head circumference, length, sex, and all interactions
 model_2 = lm(bwt ~ bhead*blength*babysex, data=bw_df )
 
 # Cross validation
@@ -140,6 +142,7 @@ weather_df_bs =
   dplyr::select(-strap, -models)
 ```
 
+### Plot the distribution of your estimates
 
 ```{r}
 # Plot density
@@ -150,6 +153,8 @@ weather_df_bs %>%
   ggplot(aes(x = log_beta)) + geom_density()
 ```
 In the first plot, r.squared has a shoulder on the left; In the second plot, log_beta has a more symmetric, gausian-like distribution.
+
+### Using the 5000 bootstrap estimates, identify the 2.5% and 97.5% quantiles to provide a 95% confidence interval
 
 ```{r}
 # Empirical 95% CI
